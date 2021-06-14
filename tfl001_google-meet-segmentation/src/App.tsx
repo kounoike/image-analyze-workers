@@ -26,6 +26,7 @@ const models: { [name: string]: string } = {
     "[144x256]_pinto_f16q" : `${process.env.PUBLIC_URL}/models/144x256/model_float16_quant.tflite`,
     "[144x256]_pinto_intq" : `${process.env.PUBLIC_URL}/models/144x256/model_integer_quant.tflite`,
     "[144x256]_pinto_weiq" : `${process.env.PUBLIC_URL}/models/144x256/model_weight_quant.tflite`,
+    "[144x256] mediapipe"  : `${process.env.PUBLIC_URL}/models/144x256/selfie_segmentation_landscape.tflite`,
 
     "[256x256]_original"   : `${process.env.PUBLIC_URL}/models/256x256/selfiesegmentation_mlkit-256x256-2021_01_19-v1215.f16.tflite`,
 
@@ -33,9 +34,9 @@ const models: { [name: string]: string } = {
 }
 
 const processSize: { [name: string]: number[] } = {
-    "96x160" : [96, 160],
+    "96x160" : [160, 96],
     "128x128": [128, 128],
-    "144x256": [144, 256],
+    "144x256": [256, 144],
 
     "256x256": [256, 256],
     "300x300": [300, 300],
@@ -203,7 +204,7 @@ const App = () => {
         const resizedResultCtx = resizedResult.getContext("2d")!                
         const dstCtx = dst.getContext("2d")!
 
-
+        resizeDst(src)
 
         const render = () => {
             console.log("RENDER::::", LOOP_ID)
@@ -264,9 +265,9 @@ const App = () => {
                 const end2   = performance.now();
                 const duration2 = end2 - start2
                 const info = document.getElementById("info") as HTMLCanvasElement
-                info.innerText = `inference time: ` + `${duration}`
+                info.innerText = `inference time: ${duration}`
                 const info2 = document.getElementById("info2") as HTMLCanvasElement
-                info2.innerText = `processing time: ` + `${duration2}`                
+                info2.innerText = `processing time: ${duration2}`                
             }else{
                 // console.log("not ready", tflite, src, dst)
             }
