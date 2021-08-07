@@ -122,9 +122,9 @@ extern "C"
         // (2) Convert RGBA2YCrCb, Extract Y of YCrCb
         unsigned char *inputImageCrCbBuffer = inputImageCrCb.data;
         for (int i = 0; i < width * height; ++i) {
-            int r = inputImageBuffer[i * 4 + 0];
-            int g = inputImageBuffer[i * 4 + 1];
-            int b = inputImageBuffer[i * 4 + 2];
+            unsigned char r = inputImageBuffer[i * 4 + 0];
+            unsigned char g = inputImageBuffer[i * 4 + 1];
+            unsigned char b = inputImageBuffer[i * 4 + 2];
             float y = 0.299f * r + 0.587f * g + 0.114f * b;
             float cr = (r - y) * 0.713f + 128.0f;
             float cb = (b - y) * 0.564f + 128.0f;
@@ -145,9 +145,9 @@ extern "C"
             float y = output[i] * 255.0f;
             float cr = resizedInputImageBuffer[i * 2 + 0];
             float cb = resizedInputImageBuffer[i * 2 + 1];
-            unsigned int r = cv::saturate_cast<unsigned char>(y + 1.403f * (cr - 128));
-            unsigned int g = cv::saturate_cast<unsigned char>(y - 0.714f * (cr - 128) - 0.344f * (cb - 128));
-            unsigned int b = cv::saturate_cast<unsigned char>(y + 1.773 * (cb - 128));
+            unsigned char r = cv::saturate_cast<unsigned char>(y + 1.403f * (cr - 128));
+            unsigned char g = cv::saturate_cast<unsigned char>(y - 0.714f * (cr - 128) - 0.344f * (cb - 128));
+            unsigned char b = cv::saturate_cast<unsigned char>(y + 1.773 * (cb - 128));
             outputImageBuffer[i * 4 + 0] = r;
             outputImageBuffer[i * 4 + 1] = g;
             outputImageBuffer[i * 4 + 2] = b;
